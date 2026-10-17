@@ -3,194 +3,305 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>A3 Weekend Schedule</title>
-<meta name="description" content="EMBA Weekend A3 class schedule, pre-readings, to-dos and deadlines.">
-<meta name="theme-color" content="#0f2a44">
+<title>A3 Weekend Brief</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
+/* Layout: a weekend picker strip, then a two-day timeline (time rail + course blocks), then the deadline runway. */
 :root{
-  --bg:#f4f6f9; --card:#ffffff; --ink:#132235; --muted:#5d6b7c; --line:#e3e8ef;
-  --brand:#0f2a44; --brand-ink:#ffffff; --shade:#eef1f5; --shade-ink:#5d6b7c;
-  --warn-bg:#fff4dd; --warn-ink:#8a5a00; --past:#9aa5b1;
-  --ECN511:#2563eb; --ENT511:#c2410c; --FIN512:#047857; --MGT532:#7c3aed; --LEAD501:#be185d; --OPS512:#0e7490; --MKT511:#a16207;
+  --bg:#f6f7f4; --surface:#ffffff; --ink:#18201c; --muted:#5d6862; --line:#dde2dc; --accent:#0f6b4f;
+  --ent:#c2410c; --ecn:#1d4ed8; --fin:#0f766e; --mgt:#7c3aed; --lead:#b45309; --ops:#0e7490; --mkt:#a21caf;
+  --due-bg:#fde8e1; --due-ink:#9a2d0d; --brk-bg:#eef1ec; --brk-ink:#4b5650;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0d1520; --card:#152131; --ink:#e7edf4; --muted:#9aa8b8; --line:#243347;
-    --brand:#0b1e31; --shade:#1b2a3c; --shade-ink:#9aa8b8; --warn-bg:#3a2c0b; --warn-ink:#f5c66b; --past:#5f6d7d;
-    --ECN511:#7aa2ff; --ENT511:#fb923c; --FIN512:#34d399; --MGT532:#a78bfa; --LEAD501:#f472b6; --OPS512:#22d3ee; --MKT511:#facc15;
-  }
-}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111613; --surface:#1a201c; --ink:#e7ece8; --muted:#9aa59f; --line:#2c3530; --accent:#4fd1a5;
+  --ent:#fb923c; --ecn:#7aa2ff; --fin:#2dd4bf; --mgt:#b79bff; --lead:#f5b74a; --ops:#22d3ee; --mkt:#f0abfc;
+  --due-bg:#3a1d14; --due-ink:#ffb59c; --brk-bg:#222a25; --brk-ink:#b7c2bc; color-scheme:dark;}}
 :root[data-theme="dark"]{
-  --bg:#0d1520; --card:#152131; --ink:#e7edf4; --muted:#9aa8b8; --line:#243347;
-  --brand:#0b1e31; --shade:#1b2a3c; --shade-ink:#9aa8b8; --warn-bg:#3a2c0b; --warn-ink:#f5c66b; --past:#5f6d7d;
-  --ECN511:#7aa2ff; --ENT511:#fb923c; --FIN512:#34d399; --MGT532:#a78bfa; --LEAD501:#f472b6; --OPS512:#22d3ee; --MKT511:#facc15;
-}
+  --bg:#111613; --surface:#1a201c; --ink:#e7ece8; --muted:#9aa59f; --line:#2c3530; --accent:#4fd1a5;
+  --ent:#fb923c; --ecn:#7aa2ff; --fin:#2dd4bf; --mgt:#b79bff; --lead:#f5b74a; --ops:#22d3ee; --mkt:#f0abfc;
+  --due-bg:#3a1d14; --due-ink:#ffb59c; --brk-bg:#222a25; --brk-ink:#b7c2bc; color-scheme:dark;}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-header{background:var(--brand);color:var(--brand-ink);padding:18px 16px 0;position:sticky;top:0;z-index:5}
-.wrap{max-width:760px;margin:0 auto}
-h1{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin:0;opacity:.75}
-.wk-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 4px}
-.wk-title h2{font-size:22px;margin:0;font-weight:700}
-.nav{display:flex;gap:6px}
-.nav button{appearance:none;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer}
-.nav button:disabled{opacity:.3;cursor:default}
-.venue{font-size:13px;opacity:.8;margin-bottom:10px}
-.chips{display:flex;gap:6px;overflow-x:auto;padding:0 0 12px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;border-radius:999px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
-.chip.on{background:#fff;color:var(--brand);border-color:#fff;font-weight:600}
-.chip.past{opacity:.55}
-main{padding:16px 16px 8px}
-section{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden}
-section>h3{font-size:15px;margin:0;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
-.count{font-size:12px;color:var(--muted);font-weight:500}
-.day h4{margin:0;padding:10px 16px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--line)}
-.row{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0}
-.t{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);padding-top:1px}
-.row.break{background:var(--shade);color:var(--shade-ink);padding-top:7px;padding-bottom:7px}
-.row.break .what{font-size:13px;font-style:italic}
-.row.activity .what{color:var(--muted);font-size:14px}
-.row.cls{border-left:4px solid var(--c);padding-left:12px}
-.code{font-weight:700;color:var(--c);font-size:13px;letter-spacing:.02em}
-.ctitle{font-weight:600}
-.who{font-size:12.5px;color:var(--muted)}
-ul.sess{margin:6px 0 0;padding:0;list-style:none}
-ul.sess li{font-size:13.5px;padding:2px 0 2px 12px;position:relative}
-ul.sess li:before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--c)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);}
+.wrap{max-width:980px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:28px}
+header{display:grid;gap:6px}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font:800 clamp(28px,5vw,44px)/1.05 var(--f-display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0}
+.picker{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.picker button{flex:none;font:500 13px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer}
+.picker button.past{color:var(--muted)}
+.picker button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.picker button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.picker .tag{font:500 10px var(--f-mono);letter-spacing:.06em;margin-left:6px;color:var(--accent)}
+.picker button[aria-pressed="true"] .tag{color:var(--bg)}
+.wk-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+h2{font:600 24px/1.2 var(--f-display);margin:0}
+.venue{color:var(--muted);font-size:14px}
+.days{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:14px;min-width:0}
+.day h3{font:600 17px var(--f-display);margin:0;display:flex;justify-content:space-between;gap:8px}
+.day h3 small{font:500 12px var(--f-mono);color:var(--muted);align-self:center}
+.blk{display:grid;grid-template-columns:96px 1fr;gap:12px;min-width:0}
+.time{font:500 12.5px/1.4 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.body{border-left:3px solid var(--c);padding-left:12px;display:grid;gap:4px;min-width:0}
+.code{font:500 11.5px var(--f-mono);letter-spacing:.06em;color:var(--c)}
+.topic{font-weight:600}
+.prep{color:var(--muted);font-size:14px}
+.pill{display:inline-block;font:600 11px var(--f-body);letter-spacing:.04em;text-transform:uppercase;background:var(--due-bg);color:var(--due-ink);border-radius:4px;padding:2px 7px;margin-right:6px}
+.est{font:500 11px var(--f-mono);color:var(--muted);border:1px dashed var(--line);border-radius:4px;padding:1px 6px;margin-left:6px}
+.brk{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;background:repeating-linear-gradient(135deg,var(--brk-bg) 0 8px,transparent 8px 12px);border-radius:8px;padding:6px 8px;margin-inline:-8px;color:var(--brk-ink)}
+.brk .time{color:var(--brk-ink)}
+.brk .lbl{font:600 13px var(--f-body);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.brk .dur{font:500 11.5px var(--f-mono);opacity:.8}
 .cont{font-size:13px;color:var(--muted)}
-.est{display:inline-block;font-size:11px;font-weight:600;background:var(--warn-bg);color:var(--warn-ink);border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:1px}
-.note{font-size:12.5px;color:var(--warn-ink);background:var(--warn-bg);border-radius:8px;padding:5px 8px;margin-top:6px}
-.grp{padding:10px 16px 4px}
-.grp h5{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.item{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px dashed var(--line)}
-.grp h5+.item{border-top:0}
-.tag{flex:0 0 auto;font-size:11.5px;font-weight:700;color:var(--c);border:1px solid var(--c);border-radius:6px;padding:1px 6px;margin-top:1px}
-.lbl{font-size:12px;color:var(--muted)}
-.item a{color:inherit}
-.empty{padding:14px 16px;color:var(--muted);font-size:14px}
-.todo .item{padding:10px 16px;border-top:1px solid var(--line)}
-.todo .item:first-of-type{border-top:0}
-.box{flex:0 0 18px;height:18px;border:2px solid var(--c);border-radius:5px;margin-top:2px}
-.when{font-size:12.5px;color:var(--muted)}
-.dl .item{padding:10px 16px;border-top:1px solid var(--line)}
-.dl .item:first-of-type{border-top:0}
-.date{flex:0 0 64px;text-align:center;border-radius:10px;background:var(--bg);padding:4px 0;line-height:1.15}
-.date b{display:block;font-size:18px}
-.date span{font-size:11px;color:var(--muted);text-transform:uppercase}
-.dl .past{opacity:.5}
-.foot-note{font-size:12.5px;color:var(--muted);padding:10px 16px 14px}
-details summary{cursor:pointer;padding:10px 16px;color:var(--muted);font-size:13px}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:8px 16px 32px}
+.c-ENT{--c:var(--ent)}.c-ECN{--c:var(--ecn)}.c-FIN{--c:var(--fin)}.c-MGT{--c:var(--mgt)}.c-LEAD{--c:var(--lead)}.c-OPS{--c:var(--ops)}.c-MKT{--c:var(--mkt)}
+.runway{display:grid;gap:10px}
+.runway ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.runway li{display:grid;grid-template-columns:120px 70px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.runway li.done{color:var(--muted)}
+.runway .d{font:500 13px var(--f-mono);font-variant-numeric:tabular-nums}
+.runway .cc{font:500 11.5px var(--f-mono);color:var(--c)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:-1px}
+
+.prepbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:16px}
+.prepbox h3{font:600 17px var(--f-display);margin:0}
+.prepbox .hint{color:var(--muted);font-size:13px;margin:-10px 0 0}
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:18px}
+.grp h4{font:500 11.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;display:flex;justify-content:space-between}
+.grp ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.grp li label{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:start;cursor:pointer}
+.grp input{margin:3px 0 0;accent-color:var(--accent);width:16px;height:16px}
+.grp .it{min-width:0}
+.grp .meta{display:block;font:500 11px var(--f-mono);color:var(--c);letter-spacing:.04em}
+.grp input:checked + .it{color:var(--muted);text-decoration:line-through}
+.none{color:var(--muted);font-size:14px}
+.note{font-size:13px;color:var(--muted);font-style:italic}
+.prep dl{margin:2px 0 0;display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:14px}
+.prep dt{font:500 11px/1.9 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.prep dd{margin:0;min-width:0}
+footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:520px){.blk{grid-template-columns:1fr;gap:4px}.runway li{grid-template-columns:90px 1fr}.runway .cc{grid-column:2}.runway .t{grid-column:1/-1}}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <h1>EMBA Weekend A3</h1>
-    <div class="wk-title"><h2 id="wkTitle"></h2>
-      <div class="nav"><button id="prev" aria-label="Previous weekend">‹</button><button id="next" aria-label="Next weekend">›</button></div>
-    </div>
-    <div class="venue" id="venue"></div>
-    <div class="chips" id="chips"></div>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">MBSC · EMBA Class of 2028 · Group Weekend A3</div>
+    <h1 id="title">Class weekend</h1>
+    <p class="sub">What to prepare for each class weekend, and what's due. Pick a weekend below.</p>
+  </header>
+
+  <nav class="picker" id="picker" aria-label="Choose a class weekend"></nav>
+
+  <section id="weekend" aria-live="polite"></section>
+
+  <div class="legend" aria-label="Course colors">
+    <span class="c-ENT">ENT511 Entrepreneurial Mindset · Dr. Roomi</span>
+    <span class="c-ECN">ECN511 Economics for Managers · Dr. George</span>
+    <span class="c-FIN">FIN512 Financial Accounting · Dr. Al-Htaybat</span>
+    <span class="c-MGT">MGT532 Data, Decisions, Risk</span>
+    <span class="c-LEAD">LEAD501 Effectiveness Skills</span>
+    <span class="c-OPS">OPS512 Operations Management</span>
+    <span class="c-MKT">MKT511 Marketing Management</span>
   </div>
-</header>
-<main class="wrap" id="main"></main>
-<footer>Created by Abdulkareem Altamimi · A3</footer>
+
+  <section class="runway">
+    <h2>Deadlines</h2>
+    <ol id="deadlines"></ol>
+  </section>
+
+  <footer>Created by Abdulkareem Altamimi · A3</footer>
+</div>
+
 <script>
-const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const DAY=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-const d=s=>{const [y,m,dd]=s.split("-").map(Number);return new Date(y,m-1,dd)};
+const V_STC="Riyadh · STC Academy, Innovation Lab", V_JW="Riyadh · JW Marriott, Turaif Meeting Room", V_CP="Riyadh · Crowne Plaza RDC, Ibn Batouta 4";
+// Books (as named in each syllabus)
+const BY="Bygrave & Zacharakis (2014)", BU="Burns (2016)",
+      HI="Analysis for Financial Management book", IF="IFRS Financial Accounting book";
+const FRI="09:00–11:30\n13:30–14:00";
+// block: [time, course, code, topic, prep{r:read,w:watch,c:case,t:to-do,o:additional,n:note}, opts]
+// FIN512's syllabus has no dates: its classes are spread evenly over its schedule blocks (est.)
+const W=[
+ {id:"oct16",label:"16–17 Oct",fri:"2026-10-16",venue:V_STC,days:[
+  {name:"Friday 16 Oct",start:"08:30",blocks:[
+   [FRI,"FIN","FIN512 · Class 1","Value Creation · Financial Challenge: Business Essentials – Coffee Shop",{w:["Aramex"],r:["How I Did It: The CEO of Aramex on Turning a Failed Sale into a Huge Opportunity","The CFO & Finance-Function Role in Value-Creation"],t:["Individual Financial Simulation (1): Business Essentials, in class (15%)"],n:["DIY 1 (Value Creation Model) due 27 Feb"]},{est:1,due:"Sim 1"}],
+   ["14:15–17:30","ENT","ENT511 · S1–2","Entrepreneurship: An overview · Entrepreneurial Thought and Action",{r:[BY+" Ch.1–2 (E. Readings)"],o:["PEC Self-Rating Questionnaire (A. Readings)",BU+" Ch.1 David and Goliath (A. Readings)",BU+" Ch.2 Heroes and Super-heroes (A. Readings)","What Makes Entrepreneurs Entrepreneurial? (A. Readings)","The Entrepreneur: Concepts and Evidence (A. Readings)"],c:["Steve Jobs – The Silicon Valley Pioneer"]}]]},
+  {name:"Saturday 17 Oct",start:"08:30",blocks:[
+   ["09:00–12:15","ECN","ECN511 · S1–2","Introduction to Economics · Demand and supply theory and applications",{}],
+   ["13:15–16:30","FIN","FIN512 · Class 2","Financial Value",{w:["Nvidia","P&L","Cash-Flow"],r:[IF+" Ch.1–4 and Ch.13"],n:["Pre-reading for the Financial Value topic (classes 2–4). DIY 2 (Cloud-Link Financial Performance) due 27 Feb"]},{est:1}]]}]},
+ {id:"oct30",label:"30–31 Oct",fri:"2026-10-30",venue:V_STC,days:[
+  {name:"Friday 30 Oct",start:"08:30",blocks:[
+   [FRI,"ENT","ENT511 · S3–4","Opportunity Recognition · Idea Generation: Creativity and Innovation",{r:[BY+" Ch.3 (E. Readings)"],o:[BU+" Ch.3 (A. Readings)",BU+" Ch.4 (A. Readings)"],c:["R&R (HBS 9-386-019)","The Hard Road: Steps on an Entrepreneurial Journey"],n:["Syllabus prints S4 as 'October 08' (a Thursday); placed here after S3"]}],
+   ["14:15–17:30","ECN","ECN511 · S3–4","Demand and supply theory and applications · Group Project Introduction with DGA",{n:["DGA session at 6pm on Zoom"]},{due:"DGA 6pm Zoom"}]]},
+  {name:"Saturday 31 Oct",start:"08:30",blocks:[
+   ["09:00–12:15","FIN","FIN512 · Class 3","Financial Value (continued)",{n:["Same pre-reading as class 2"]},{est:1}],
+   ["13:15–16:30","ENT","ENT511 · S5–6","Business Model(s) · Business Start-up: Setting it all up",{r:[BY+" Ch.4–5 (E. Readings)"],o:[BU+" Ch.5 The Decision (A. Readings)"],c:["UBER: An Empire in the Making","Jahez: Another Saudi Unicorn in the making?"]}]]}]},
+ {id:"nov13",label:"13–14 Nov",fri:"2026-11-13",venue:V_STC,days:[
+  {name:"Friday 13 Nov",start:"08:30",blocks:[
+   [FRI,"ENT","ENT511 · S7–8","Building the Team · The Agentic Venture",{r:[BY+" Ch.6 (E. Readings)","AI Startups: The Scarcity Shift (Caselets) (E. Readings)"],o:["AI for Startups Ch.1 New Conditions (A. Readings)","AI for Startups Ch.2 The Company Before the Company (A. Readings)"],c:["Human and social capital caselets: The Role of Human-based Capital in Entrepreneurial Ventures","AI Startups: Base 44 and MEDVI (caselets)"],t:["Submit a brief proposal identifying the entrepreneur or venture for the final project"]},{due:"Proposal due"}],
+   ["14:15–17:30","ECN","ECN511 · S5–6","Interaction of demand and supply · Economic Growth, Unemployment",{}]]},
+  {name:"Saturday 14 Nov",start:"08:30",blocks:[
+   ["09:00–12:15","FIN","FIN512 · Class 4","Financial Value · Financial Analysis Simulation: Data Detective",{t:["Individual Financial Simulation (2): Data Detective, in class (10%)"],n:["Homework: Financial & Strategic Analysis of Nvidia (Blackboard), no date in syllabus"]},{est:1,due:"Sim 2"}],
+   ["13:15–16:30","ENT","ENT511 · S9–10","Start-up: Financing",{r:[BY+" Ch.8–11 (E. Readings)"],o:[BU+" Ch.7 (A. Readings)"],c:["Unifonic: The Growth of a Startup from a Messaging Service to a SaaS Provider","Organic Apoteke – Being Spoilt for Choice is Not Always Easy"]}]]}]},
+ {id:"nov27",label:"27–28 Nov",fri:"2026-11-27",venue:V_JW,days:[
+  {name:"Friday 27 Nov",start:"08:30",blocks:[
+   [FRI,"ECN","ECN511 · S7–8","Fiscal Policy, Monetary Policy, International Trade, Import Leakages, Multipliers",{t:["Individual In-class Test (30%): the grading section dates it 27 Nov, the session table 11 Dec"]},{due:"Test?"}]]},
+  {name:"Saturday 28 Nov",start:"08:30",blocks:[
+   ["09:00–12:15","ENT","ENT511 · S11–12","Entrepreneurial Growth: Models · Strategies",{r:[BY+" Ch.12–13 (E. Readings)"],o:[BU+" Ch.10 (A. Readings)",BU+" Ch.11 (A. Readings)"],c:["Growing Pains","Azza Fehmi Jewelry: International Expansion (HBS W13657)"],t:["Submit the Teaching Case (50%) + Teaching Note (25%) on Blackboard by 11:59pm"]},{due:"Due 11:59pm"}]]}]},
+ {id:"dec11",label:"11–12 Dec",fri:"2026-12-11",venue:V_STC,days:[
+  {name:"Friday 11 Dec",start:"08:30",blocks:[
+   [FRI,"FIN","FIN512 · Class 5","Planning Financial Growth",{w:["Saudi Coffee Company"],r:[HI+" Ch.3–4"],n:["DIY 3 (Financial Plan, Saudi Coffee Startup) due 27 Feb"]},{est:1}],
+   ["14:15–17:30","ECN","ECN511 · S9–10","In-Class Test · The Elasticity of demand and supply",{t:["In-Class Test (session 9): the session table dates it 11 Dec, the grading section 27 Nov"]},{due:"Test?"}]]},
+  {name:"Saturday 12 Dec",start:"08:30",blocks:[
+   ["09:00–12:15","FIN","FIN512 · Class 6","Financial Simulation: Managing Working Capital",{t:["Individual Financial Simulation (3): Working Capital, in class (15%)"],n:["Reflection report due 27 Feb"]},{est:1,due:"Sim 3"}],
+   ["13:15–16:30","ECN","ECN511 · S11–12","The Elasticity of demand and supply · Economic Efficiency",{}]]}]},
+ {id:"dec18",label:"18–19 Dec",fri:"2026-12-18",venue:V_CP,days:[
+  {name:"Friday 18 Dec",start:"08:30",blocks:[
+   [FRI,"FIN","FIN512 · Class 7","Managing Working Capital",{w:["Financial Health (BB, in class only)","ABS (in Arabic, use subtitles)"],r:[HI+" Ch.3–6"]},{est:1}],
+   ["14:15–17:30","ECN","ECN511 · S13–14","Economic Efficiency · Government Interventions",{}]]},
+  {name:"Saturday 19 Dec",start:"08:30",blocks:[
+   ["09:00–12:15","FIN","FIN512 · Classes 8–9","Sim 4: Back Bay Battery v3 · Enhancing Profitability",{w:["All The Ways BYD Is Leaving Tesla in the Dust","Why Starbucks is Struggling with Value Wars","Starbucks CEO"],t:["Individual Financial Simulation (4): Back Bay Battery v3, in class (15%)"],n:["Reflection report and DIY 4 (IKEA's Home Share) due 27 Feb"]},{est:1,due:"Sim 4"}],
+   ["13:15–16:30","ECN","ECN511 · S15–16","Group Presentations",{t:["Group Presentation (30%): 8 minutes plus questions; sector, economics topic, EPP & localisation, recommendation"],n:["All group members must attend"]},{due:"Presentation"}]]}]},
+ {id:"jan08",label:"8–9 Jan",fri:"2027-01-08",venue:V_STC,days:[
+  {name:"Friday 8 Jan",start:"08:30",blocks:[
+   [FRI,"MGT","MGT532","Data, Decisions, Risk · Dr. Ali Hajjar",{n:["Syllabus not shared yet"]}],
+   ["14:15–17:30","LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Kimberly Deatherage-Mominah",{n:["Syllabus not shared yet"]}]]},
+  {name:"Saturday 9 Jan",start:"08:30",blocks:[
+   ["09:00–12:15","ENT","ENT511 · S13–14","Entrepreneurial Leadership (1) and (2)",{r:[BU+" Ch.8 From Entrepreneur to Leader (E. Readings)"],c:["Richard Branson/Herb Kelleher: Leader Extraordinaire"]}],
+   ["13:15–16:30","MGT","MGT532","Data, Decisions, Risk · Dr. Ali Hajjar",{}]]}]},
+ {id:"jan22",label:"22–23 Jan",fri:"2027-01-22",venue:V_STC,days:[
+  {name:"Friday 22 Jan",start:"08:30",blocks:[
+   [FRI,"LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Haya Aldajani",{}],
+   ["14:15–17:30","MGT","MGT532","Data, Decisions, Risk · Dr. Ali Hajjar",{}]]},
+  {name:"Saturday 23 Jan",start:"08:30",blocks:[
+   ["09:00–12:15","ENT","ENT511 · S15–16","Corporate Entrepreneurship · Social Entrepreneurship (last class)",{r:[BU+" Ch.18 (E. Readings)",BU+" Ch.17 (E. Readings)"],o:["Yunus & Weber, Why Social Business, Building Social Business (2010) (A. Readings)"],c:["3M","Glowork"]}],
+   ["13:15–16:30","LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Haya Aldajani",{}]]}]},
+ {id:"feb05",label:"5–6 Feb",fri:"2027-02-05",venue:V_JW,days:[
+  {name:"Friday 5 Feb",start:"08:30",blocks:[
+   [FRI,"MGT","MGT532","Data, Decisions, Risk · Dr. Ali Hajjar",{}],
+   ["17:45–21:00","LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Kimberly Deatherage-Mominah",{}]]},
+  {name:"Saturday 6 Feb",start:"08:30",blocks:[
+   ["09:00–12:15\n13:15–16:30","LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Kimberly Deatherage-Mominah",{}]]}]},
+ {id:"mar19",label:"19–20 Mar",fri:"2027-03-19",venue:V_STC,days:[
+  {name:"Friday 19 Mar",start:"08:30",blocks:[
+   ["09:00–11:30\n13:30–14:00\n14:15–17:30","MGT","MGT532","Data, Decisions, Risk · Dr. Mario Vanhoucke",{}]]},
+  {name:"Saturday 20 Mar",start:"08:30",blocks:[
+   ["09:00–12:15\n13:15–16:30","MGT","MGT532","Data, Decisions, Risk · Dr. Mario Vanhoucke",{}]]}]},
+ {id:"apr02",label:"2–3 Apr",fri:"2027-04-02",venue:V_STC,days:[
+  {name:"Friday 2 Apr",start:"08:30",blocks:[
+   [FRI,"OPS","OPS512","Operations Management · Dr. Timofey Shalpegin",{n:["Syllabus not shared yet"]}],
+   ["14:15–17:30","MKT","MKT511","Marketing Management · Dr. Aseel Alghamdi",{n:["Syllabus not shared yet"]}]]},
+  {name:"Saturday 3 Apr",start:"08:30",blocks:[
+   ["09:00–12:15","MKT","MKT511","Marketing Management · Dr. Aseel Alghamdi",{}],
+   ["13:15–16:30","OPS","OPS512","Operations Management · Dr. Timofey Shalpegin",{}]]}]},
+ {id:"apr16",label:"16–17 Apr",fri:"2027-04-16",venue:V_JW,days:[
+  {name:"Friday 16 Apr",start:"08:30",blocks:[
+   [FRI,"OPS","OPS512","Operations Management · Dr. Timofey Shalpegin",{}],
+   ["14:15–17:30","MKT","MKT511","Marketing Management · Dr. Aseel Alghamdi",{}]]},
+  {name:"Saturday 17 Apr",start:"08:30",blocks:[
+   ["09:00–12:15","LEAD","LEAD501","LEAD 1: Effectiveness Skills · Dr. Kimberly Deatherage-Mominah",{}],
+   ["13:15–16:30","OPS","OPS512","Operations Management · Dr. Timofey Shalpegin",{}]]}]}
+];
+const D=[
+ ["2026-11-13","Fri 13 Nov","ENT","ENT511","Brief proposal: name your entrepreneur or venture"],
+ ["2026-11-27","Fri 27 Nov","ECN","ECN511","Individual in-class test · 30% (grading section; session table says 11 Dec)"],
+ ["2026-11-28","Sat 28 Nov","ENT","ENT511","Teaching Case (50%) + Teaching Note (25%), 11:59pm on Blackboard"],
+ ["2026-12-11","Fri 11 Dec","ECN","ECN511","In-class test, session 9 (session table; grading section says 27 Nov)"],
+ ["2026-12-19","Sat 19 Dec","ECN","ECN511","Group presentation · 30%"],
+ ["2026-12-21","Mon 21 Dec","ECN","ECN511","Individual reflection · 10% (2 days after the presentations)"],
+ ["2027-01-02","Sat 2 Jan","ECN","ECN511","Group report, 8–10 page EPP playbook · 30% (2 weeks after the presentation)"],
+ ["2027-02-27","Sat 27 Feb","FIN","FIN512","4 DIYs (20%), Sim 3+4 reflections (10%), AI-Focused Financial & Strategic Analysis (15%)"]
+];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const today=(()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())})();
-let DATA,idx=0;
+const today=new Date(); today.setHours(0,0,0,0);
+const day=s=>{const d=new Date(s+"T00:00:00");return d};
+const sat=w=>{const d=day(w.fri);d.setDate(d.getDate()+1);return d};
+let nextIdx=W.findIndex(w=>day(w.fri)>today); if(nextIdx<0) nextIdx=W.length-1;
+const curIdx=W.findIndex(w=>day(w.fri)<=today && sat(w)>=today);
 
-function wkLabel(w){const a=d(w.days[0].date),b=d(w.days[w.days.length-1].date);
-  return a.getMonth()===b.getMonth()?`${a.getDate()}–${b.getDate()} ${MON[a.getMonth()]}`:`${a.getDate()} ${MON[a.getMonth()]} – ${b.getDate()} ${MON[b.getMonth()]}`}
-function wkEnd(w){return d(w.days[w.days.length-1].date)}
-const cvar=c=>`--c:var(--${c},var(--muted))`;
-const tag=c=>`<span class="tag" style="${cvar(c)}">${esc(c)}</span>`;
+const FIN_TBC=false; // FIN512 topics are a planned distribution (pace-dependent), shown as planned
+const FIN_OK=new Set(); // weekends whose FIN512 prep is confirmed
+const finShown=(w,o)=>!FIN_TBC||FIN_OK.has(w.id)||(o&&o.ok); // block-level {ok:1} also counts
+const GROUPS=[["c","Cases to prepare"],["r","Reading"],["w","Watch"],["t","To do & submit"],["o","Additional reading"]];
+const LBL={c:"Case",r:"Read",w:"Watch",t:"To do",o:"Additional"};
+function load(){try{return JSON.parse(localStorage.getItem("a3-done")||"{}")}catch(e){return {}}}
+function save(o){try{localStorage.setItem("a3-done",JSON.stringify(o))}catch(e){}}
 
-function timeline(w){
-  return w.days.map(day=>{
-    const dt=d(day.date);
-    const rows=day.rows.map(r=>{
-      const t=`<div class="t">${r.start}${r.end?"–"+r.end:""}</div>`;
-      if(r.kind==="break")return `<div class="row break">${t}<div class="what">${esc(r.title)}</div></div>`;
-      if(r.kind==="activity")return `<div class="row activity">${t}<div class="what">${esc(r.title)}</div></div>`;
-      const c=DATA.courses[r.course]||{title:r.course};
-      if(r.cont)return `<div class="row cls" style="${cvar(r.course)}">${t}<div><span class="code">${r.course}</span> <span class="cont">continues</span></div></div>`;
-      const sess=(r.sessions&&r.sessions.length)?`<ul class="sess">${r.sessions.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:(c.syllabus?"":`<div class="who">Syllabus not received yet</div>`);
-      return `<div class="row cls" style="${cvar(r.course)}">${t}<div>
-        <div><span class="code">${r.course}</span> <span class="ctitle">${esc(c.title)}</span>${r.est?'<span class="est">Estimate</span>':""}${r.online?'<span class="est">Zoom</span>':""}</div>
-        ${r.instructor?`<div class="who">${esc(r.instructor)}</div>`:""}${sess}${r.note?`<div class="note">${esc(r.note)}</div>`:""}</div></div>`;
-    }).join("");
-    return `<div class="day"><h4>${DAY[dt.getDay()]} ${dt.getDate()} ${MON[dt.getMonth()]}</h4>${rows}</div>`;
-  }).join("");
+const toMin=x=>{const [h,m]=x.split(":").map(Number);return h*60+m};
+const fmtDur=m=>m>=60?(m%60?`${Math.floor(m/60)} h ${m%60} min`:`${m/60} h`):`${m} min`;
+function brkRow(a,b,label){const d=toMin(b)-toMin(a);return `<div class="brk"><div class="time">${a}–${b}</div><div class="lbl">${label}<span class="dur">${fmtDur(d)}</span></div></div>`}
+function brkLabel(d,a,b){if(d.name.startsWith("Friday")&&a==="11:30")return "Jumaa prayer + lunch";const m=toMin(b)-toMin(a);return m>=45&&m<=120?"Lunch break":"Break"}
+function blockCard(w,[t,c,code,topic,p,o={}],timeText){
+       if(c==="FIN"&&!finShown(w,o)){code="FIN512";topic="Financial Accounting";p={n:["Topic and pre-reading for this class are being confirmed"]};o={};}
+       const rows=GROUPS.map(([k])=>k).filter(k=>(p[k]||[]).length).map(k=>`<dt>${LBL[k]}</dt><dd>${p[k].map(esc).join("<br>")}</dd>`).join("");
+       return `<div class="blk c-${c}"><div class="time">${esc(timeText)}</div>
+       <div class="body"><div class="code">${esc(code)}${o.est?'<span class="est">est.</span>':""}</div>
+        <div class="topic">${o.due?`<span class="pill">${esc(o.due)}</span>`:""}${esc(topic)}</div>
+        ${(p.n||[]).length?`<div class="note">${p.n.map(esc).join(" · ")}</div>`:""}
+        ${rows?`<div class="prep"><dl>${rows}</dl></div>`:((p.n||[]).length?"":`<div class="prep">No prep listed.</div>`)}</div></div>`}
+function dayRows(d){
+  const w=CURW, out=[]; let prevEnd=null;
+  d.blocks.forEach((b,bi)=>{
+    const segs=b[0].split("\n").map(r=>r.split("–"));
+    if(prevEnd===null){ if(toMin(segs[0][0])>toMin(d.start)) out.push(brkRow(d.start,segs[0][0],"Leaders' Morning Activity")); }
+    else if(toMin(segs[0][0])>toMin(prevEnd)) out.push(brkRow(prevEnd,segs[0][0],brkLabel(d,prevEnd,segs[0][0])));
+    out.push(blockCard(w,b,segs[0].join("–")));
+    for(let k=1;k<segs.length;k++){
+      out.push(brkRow(segs[k-1][1],segs[k][0],brkLabel(d,segs[k-1][1],segs[k][0])));
+      out.push(`<div class="blk c-${b[1]}"><div class="time">${segs[k].join("–")}</div><div class="body"><div class="code">${esc(b[2].split(" ·")[0])}</div><div class="cont">${esc(b[1]==="FIN"&&!finShown(w,b[5])?"Financial Accounting":b[3])} (continued)</div></div></div>`);
+    }
+    prevEnd=segs[segs.length-1][1];
+  });
+  return out.join("");
 }
-
-function prep(w){
-  const groups=[["case","Cases"],["reading","Reading"],["watch","Watch"],["additional","Additional reading"]];
-  const out=groups.map(([k,h])=>{
-    const items=w.prep.filter(p=>p.type===k);
-    if(!items.length)return "";
-    return `<div class="grp"><h5>${h}</h5>${items.map(p=>`<div class="item">${tag(p.course)}<div>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.text)}</a>`:esc(p.text)}${p.label&&p.label!=="Case"?` <span class="lbl">· ${esc(p.label)}</span>`:""}</div></div>`).join("")}</div>`;
-  }).join("");
-  if(!out)return `<div class="empty">Nothing listed in the syllabi for this weekend.</div>`;
-  const notes=[];
-  if(w.prep.some(p=>p.course==="ENT511"))notes.push("ENT511 labels are the syllabus’s own (“E. Readings”, “A. Readings”).");
-  if(w.prep_est)notes.push("FIN512’s syllabus has no dates, so its weekend placement is an estimate.");
-  return out+(notes.length?`<div class="foot-note">${notes.join(" ")}</div>`:"");
-}
-
-function todo(w){
-  if(!w.todo.length)return `<div class="empty">Nothing due this weekend.</div>`;
-  return w.todo.map(t=>`<div class="item" style="${cvar(t.course)}"><div class="box"></div><div>${tag(t.course)} ${esc(t.text)}<div class="when">${esc(t.when)}${t.est?'<span class="est">Estimate</span>':""}</div></div></div>`).join("");
-}
-
-function deadlines(w){
-  const start=d(w.days[0].date);
-  const row=x=>{const dt=x.date?d(x.date):null;
-    const date=dt?`<div class="date"><b>${dt.getDate()}</b><span>${MON[dt.getMonth()]} ${String(dt.getFullYear()).slice(2)}</span></div>`:`<div class="date"><b>–</b><span>No date</span></div>`;
-    const est=x.note==="estimate";
-    return `<div class="item${dt&&dt<today?" past":""}">${date}<div>${tag(x.course)} ${esc(x.text)}${est?'<span class="est">Estimate</span>':""}${x.note&&!est?`<div class="when">${esc(x.note)}</div>`:""}</div></div>`};
-  const up=DATA.deadlines.filter(x=>!x.date||d(x.date)>=start), past=DATA.deadlines.filter(x=>x.date&&d(x.date)<start);
-  return (up.length?up.map(row).join(""):`<div class="empty">No deadlines from this weekend on.</div>`)+
-    (past.length?`<details><summary>Earlier deadlines (${past.length})</summary>${past.map(row).join("")}</details>`:"");
-}
-
-function render(){
-  const w=DATA.weekends[idx];
-  document.getElementById("wkTitle").textContent=wkLabel(w)+" "+d(w.days[0].date).getFullYear();
-  document.getElementById("venue").textContent=w.venue||"";
-  document.getElementById("prev").disabled=idx===0;
-  document.getElementById("next").disabled=idx===DATA.weekends.length-1;
-  document.querySelectorAll(".chip").forEach((c,i)=>c.classList.toggle("on",i===idx));
-  const on=document.querySelectorAll(".chip")[idx]; if(on)on.scrollIntoView({block:"nearest",inline:"center"});
-  document.getElementById("main").innerHTML=`
-    <section><h3>Timeline</h3>${timeline(w)}</section>
-    <section><h3>Pre-readings and cases <span class="count">${w.prep.length||""}</span></h3>${prep(w)}</section>
-    <section class="todo"><h3>To do <span class="count">${w.todo.length||""}</span></h3>${todo(w)}</section>
-    <section class="dl"><h3>Deadlines</h3>${deadlines(w)}</section>`;
+let CURW=null;
+function render(i){
+  const w=W[i], done=load(); CURW=w;
+  document.querySelectorAll("#picker button").forEach((b,j)=>b.setAttribute("aria-pressed",j===i?"true":"false"));
+  const tag=i===curIdx?"This weekend":i===nextIdx?"Next weekend":"";
+  document.getElementById("title").textContent=(tag?tag+": ":"Class weekend ")+w.label;
+  const items={c:[],r:[],w:[],t:[],o:[]};
+  w.days.forEach(d=>d.blocks.forEach(([t,c,code,topic,p,o])=>{
+    if(c==="FIN"&&!finShown(w,o)) return;
+    for(const k in items)(p[k]||[]).forEach(x=>items[k].push({x,c,code:code.split(" ·")[0],day:d.name.split(" ")[0].slice(0,3)}));
+  }));
+  const LIST=new Set(["c","r","w","o"]);
+  const groups=GROUPS.filter(([k])=>LIST.has(k)&&items[k].length).map(([k,h])=>`
+    <div class="grp"><h4><span>${h}</span><span>${items[k].length}</span></h4><ul>${items[k].map(it=>{
+      const id=w.id+"|"+k+"|"+it.code+"|"+it.x;
+      return `<li class="c-${it.c}"><label><input type="checkbox" data-id="${esc(id)}"${done[id]?" checked":""}><span class="it"><span class="meta">${esc(it.code)} · ${esc(it.day)}</span>${esc(it.x)}</span></label></li>`}).join("")}</ul></div>`).join("");
+  document.getElementById("weekend").innerHTML=`
+   <div class="wk-head"><h2>${esc(w.label)}</h2><span class="venue">${esc(w.venue)}</span></div>
+   <div class="prepbox" style="margin-top:14px"><h3>Pre-readings and cases</h3><p class="hint">Everything to read or watch before this weekend. Tick items as you go; your ticks stay on this device only.</p>
+    ${groups?`<div class="groups">${groups}</div>`:`<p class="none">No pre-readings or cases listed for this weekend. Check Blackboard.</p>`}</div>
+   <div class="days" style="margin-top:16px">${w.days.map(d=>`
+    <article class="day"><h3>${esc(d.name)}</h3>
+     ${dayRows(d)}
+    </article>`).join("")}</div>`;
+  document.querySelectorAll("#weekend input[type=checkbox]").forEach(cb=>cb.addEventListener("change",()=>{const o=load();if(cb.checked)o[cb.dataset.id]=1;else delete o[cb.dataset.id];save(o)}));
   try{history.replaceState(null,"","#"+w.id)}catch(e){}
 }
-
-fetch("data.json",{cache:"no-cache"}).then(r=>r.json()).then(j=>{
-  DATA=j;
-  const hash=location.hash.slice(1);
-  const h=DATA.weekends.findIndex(w=>w.id===hash);
-  if(h>=0)idx=h;else{const n=DATA.weekends.findIndex(w=>wkEnd(w)>=today);idx=n>=0?n:DATA.weekends.length-1}
-  document.getElementById("chips").innerHTML=DATA.weekends.map((w,i)=>`<button class="chip${wkEnd(w)<today?" past":""}" data-i="${i}">${wkLabel(w)}</button>`).join("");
-  document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b){idx=+b.dataset.i;render();window.scrollTo(0,0)}});
-  document.getElementById("prev").onclick=()=>{if(idx>0){idx--;render()}};
-  document.getElementById("next").onclick=()=>{if(idx<DATA.weekends.length-1){idx++;render()}};
-  render();
+const picker=document.getElementById("picker");
+W.forEach((w,i)=>{
+  const b=document.createElement("button");b.type="button";
+  if(sat(w)<today) b.className="past";
+  b.innerHTML=esc(w.label)+(i===nextIdx?'<span class="tag">NEXT</span>':i===curIdx?'<span class="tag">NOW</span>':"");
+  b.onclick=()=>render(i); picker.appendChild(b);
 });
+document.getElementById("deadlines").innerHTML=D.map(([iso,d,c,code,t])=>
+ `<li class="c-${c}${day(iso)<today?" done":""}"><span class="d">${d}</span><span class="cc">${code}</span><span class="t">${esc(t)}</span></li>`).join("");
+const h=(location.hash||"").slice(1); const hi=W.findIndex(w=>w.id===h);
+render(hi>=0?hi:nextIdx);
+picker.children[hi>=0?hi:nextIdx]?.scrollIntoView({block:"nearest",inline:"center"});
 </script>
+
 </body>
 </html>
