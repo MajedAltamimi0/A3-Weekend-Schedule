@@ -46,19 +46,49 @@ h2{font:600 24px/1.2 var(--f-display);margin:0}
 .day{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:14px;min-width:0}
 .day h3{font:600 17px var(--f-display);margin:0;display:flex;justify-content:space-between;gap:8px}
 .day h3 small{font:500 12px var(--f-mono);color:var(--muted);align-self:center}
-.blk{display:grid;grid-template-columns:96px 1fr;gap:12px;min-width:0}
-.time{font:500 12.5px/1.4 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
-.body{border-left:3px solid var(--c);padding-left:12px;display:grid;gap:4px;min-width:0}
+.tl{position:relative;margin-left:52px}
+.tl .hr{position:absolute;left:-52px;right:0;border-top:1px dashed var(--line);font:500 11px/1 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.tl .hr span{position:absolute;top:-6px;left:0;background:var(--surface);padding-right:4px;width:48px;white-space:nowrap}
+.blk{position:absolute;left:0;right:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:6px;padding:6px 10px;overflow:hidden;cursor:pointer;z-index:1}
+.blk:hover{border-color:var(--c)}
+.blk:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.blk .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.time{font:500 12px/1.4 var(--f-mono);color:var(--muted);font-variant-numeric:tabular-nums}
 .code{font:500 11.5px var(--f-mono);letter-spacing:.06em;color:var(--c)}
-.topic{font-weight:600}
+.topic{font-weight:600;margin-top:2px}
+.more{font:500 11px var(--f-mono);color:var(--muted);margin-top:4px}
 .prep{color:var(--muted);font-size:14px}
 .pill{display:inline-block;font:600 11px var(--f-body);letter-spacing:.04em;text-transform:uppercase;background:var(--due-bg);color:var(--due-ink);border-radius:4px;padding:2px 7px;margin-right:6px}
 .est{font:500 11px var(--f-mono);color:var(--muted);border:1px dashed var(--line);border-radius:4px;padding:1px 6px;margin-left:6px}
-.brk{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;background:repeating-linear-gradient(135deg,var(--brk-bg) 0 8px,transparent 8px 12px);border-radius:8px;padding:6px 8px;margin-inline:-8px;color:var(--brk-ink)}
-.brk .time{color:var(--brk-ink)}
-.brk .lbl{font:600 13px var(--f-body);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
-.brk .dur{font:500 11.5px var(--f-mono);opacity:.8}
+.brk{position:absolute;left:0;right:0;display:flex;align-items:center;gap:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--brk-bg) 0 8px,transparent 8px 12px);border-radius:6px;padding:0 10px;color:var(--brk-ink)}
+.brk .lbl{font:600 12.5px/1.2 var(--f-body);display:flex;gap:8px;align-items:baseline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brk .dur{font:500 11px var(--f-mono);opacity:.8}
 .cont{font-size:13px;color:var(--muted)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--surface)}
+.seg button{font:500 12px var(--f-body);color:var(--muted);background:none;border:0;border-radius:999px;padding:4px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.hdr-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+dialog.sheet{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:18px;width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px)}
+dialog.sheet::backdrop{background:rgb(0 0 0 / .45)}
+dialog.sheet .body{border-left:3px solid var(--c);padding-left:12px;display:grid;gap:6px}
+dialog.sheet .x{float:right;font:500 13px var(--f-body);background:none;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:4px 12px;cursor:pointer;margin:0 0 8px 8px}
+.cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.mon{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.mon h4{font:600 15px var(--f-display);margin:0 0 8px}
+.mon .g{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.mon .wd{font:500 10.5px var(--f-mono);color:var(--muted);padding-bottom:4px}
+.mon .cd{position:relative;font:500 12.5px/1 var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink);background:none;border:0;border-radius:6px;padding:7px 0 12px;min-width:0}
+.mon .cd.cls{background:var(--brk-bg)}
+.mon .cd.past{color:var(--muted)}
+.mon .cd.today{box-shadow:inset 0 0 0 1.5px var(--accent)}
+.mon button.cd{cursor:pointer;font-weight:700}
+.mon button.cd[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.mon .dots{position:absolute;left:0;right:0;bottom:3px;display:flex;justify-content:center;gap:2px}
+.mon .dots i{width:6px;height:6px;border-radius:50%;background:var(--c)}
+.calkey{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+.calkey .sw{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--brk-bg);vertical-align:-3px;margin-right:6px}
+.caldet{min-height:1.5em}
 .c-ENT{--c:var(--ent)}.c-ECN{--c:var(--ecn)}.c-FIN{--c:var(--fin)}.c-MGT{--c:var(--mgt)}.c-LEAD{--c:var(--lead)}.c-OPS{--c:var(--ops)}.c-MKT{--c:var(--mkt)}
 .runway{display:grid;gap:10px}
 .runway ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
@@ -86,7 +116,7 @@ h2{font:600 24px/1.2 var(--f-display);margin:0}
 .prep dt{font:500 11px/1.9 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .prep dd{margin:0;min-width:0}
 footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:14px}
-@media (max-width:520px){.blk{grid-template-columns:1fr;gap:4px}.runway li{grid-template-columns:90px 1fr}.runway .cc{grid-column:2}.runway .t{grid-column:1/-1}}
+@media (max-width:520px){.runway li{grid-template-columns:90px 1fr}.runway .cc{grid-column:2}.runway .t{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -96,7 +126,8 @@ footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);paddin
   <header>
     <div class="eyebrow">MBSC · EMBA Class of 2028 · Group Weekend A3</div>
     <h1 id="title">Class weekend</h1>
-    <p class="sub">What to prepare for each class weekend, and what's due. Pick a weekend below.</p>
+    <div class="hdr-row"><p class="sub">What to prepare for each class weekend, and what's due. Pick a weekend below.</p>
+     <div class="seg" id="clock" role="group" aria-label="Time format"><button type="button" data-v="12">12h</button><button type="button" data-v="24">24h</button></div></div>
   </header>
 
   <nav class="picker" id="picker" aria-label="Choose a class weekend"></nav>
@@ -114,9 +145,13 @@ footer{color:var(--muted);font-size:13px;border-top:1px solid var(--line);paddin
   </div>
 
   <section class="runway">
-    <h2>Deadlines</h2>
+    <div class="hdr-row"><h2>Deadlines</h2>
+     <div class="seg" id="dlview" role="group" aria-label="Deadline view"><button type="button" data-v="list">List</button><button type="button" data-v="cal">Calendar</button></div></div>
     <ol id="deadlines"></ol>
+    <div id="dlcal" hidden></div>
   </section>
+
+  <dialog class="sheet" id="sheet"><button type="button" class="x" id="sheetx">Close</button><div id="sheetbody"></div></dialog>
 
   <footer>Created by Abdulkareem Altamimi · A3 Weekend Group 3</footer>
 </div>
@@ -237,34 +272,55 @@ function save(o){try{localStorage.setItem("a3-done",JSON.stringify(o))}catch(e){
 
 const toMin=x=>{const [h,m]=x.split(":").map(Number);return h*60+m};
 const fmtDur=m=>m>=60?(m%60?`${Math.floor(m/60)} h ${m%60} min`:`${m/60} h`):`${m} min`;
-function brkRow(a,b,label){const d=toMin(b)-toMin(a);return `<div class="brk"><div class="time">${a}–${b}</div><div class="lbl">${label}<span class="dur">${fmtDur(d)}</span></div></div>`}
+// 12h/24h clock, remembered per device
+let CLOCK="12"; try{if(localStorage.getItem("a3-clock")==="24")CLOCK="24"}catch(e){}
+const p2=n=>String(n).padStart(2,"0");
+const hm=m=>`${p2(Math.floor(m/60))}:${p2(m%60)}`;
+const ap=x=>toMin(x)<720?"am":"pm";
+const h12=x=>{const [h,m]=x.split(":").map(Number);return `${h%12||12}:${p2(m)}`};
+const fmtT=x=>CLOCK==="24"?x:`${h12(x)} ${ap(x)}`;
+const fmtR=(a,b)=>CLOCK==="24"?`${a}–${b}`:ap(a)===ap(b)?`${h12(a)}–${h12(b)} ${ap(b)}`:`${fmtT(a)}–${fmtT(b)}`;
 function brkLabel(d,a,b){if(d.name.startsWith("Friday")&&a==="11:30")return "Jumaa prayer + lunch";const m=toMin(b)-toMin(a);return m>=45&&m<=120?"Lunch break":"Break"}
-function blockCard(w,[t,c,code,topic,p,o={}],timeText){
-       if(c==="FIN"&&!finShown(w,o)){code="FIN512";topic="Financial Accounting";p={n:["Topic and pre-reading for this class are being confirmed"]};o={};}
-       const rows=GROUPS.map(([k])=>k).filter(k=>(p[k]||[]).length).map(k=>`<dt>${LBL[k]}</dt><dd>${p[k].map(esc).join("<br>")}</dd>`).join("");
-       return `<div class="blk c-${c}"><div class="time">${esc(timeText)}</div>
-       <div class="body"><div class="code">${esc(code)}${o.est?'<span class="est">est.</span>':""}</div>
-        <div class="topic">${o.due?`<span class="pill">${esc(o.due)}</span>`:""}${esc(topic)}</div>
-        ${(p.n||[]).length?`<div class="note">${p.n.map(esc).join(" · ")}</div>`:""}
-        ${rows?`<div class="prep"><dl>${rows}</dl></div>`:((p.n||[]).length?"":`<div class="prep">No prep listed.</div>`)}</div></div>`}
-function dayRows(d){
-  const w=CURW, out=[]; let prevEnd=null;
-  d.blocks.forEach((b,bi)=>{
-    const segs=b[0].split("\n").map(r=>r.split("–"));
-    if(prevEnd===null){ if(toMin(segs[0][0])>toMin(d.start)) out.push(brkRow(d.start,segs[0][0],"Leaders' Morning Activity")); }
-    else if(toMin(segs[0][0])>toMin(prevEnd)) out.push(brkRow(prevEnd,segs[0][0],brkLabel(d,prevEnd,segs[0][0])));
-    out.push(blockCard(w,b,segs[0].join("–")));
-    for(let k=1;k<segs.length;k++){
-      out.push(brkRow(segs[k-1][1],segs[k][0],brkLabel(d,segs[k-1][1],segs[k][0])));
-      out.push(`<div class="blk c-${b[1]}"><div class="time">${segs[k].join("–")}</div><div class="body"><div class="code">${esc(b[2].split(" ·")[0])}</div><div class="cont">${esc(b[1]==="FIN"&&!finShown(w,b[5])?"Financial Accounting":b[3])} (continued)</div></div></div>`);
-    }
-    prevEnd=segs[segs.length-1][1];
+// Time grid: every day of a weekend shares one scale, from the day start (08:30) to the weekend's last class
+const PPM=1.6; // pixels per minute
+const segsOf=b=>b[0].split("\n").map(r=>r.split("–"));
+function weekendSpan(w){const s=Math.min(...w.days.map(d=>toMin(d.start)));
+  const e=Math.max(...w.days.flatMap(d=>d.blocks.map(b=>toMin(segsOf(b).at(-1)[1]))));return [s,Math.ceil(e/30)*30]}
+const BLK=[]; // blocks of the shown weekend, for the prep sheet
+function prepHTML(w,[t,c,code,topic,p,o={}]){
+  if(c==="FIN"&&!finShown(w,o)){code="FIN512";topic="Financial Accounting";p={n:["Topic and pre-reading for this class are being confirmed"]};o={};}
+  const rows=GROUPS.map(([k])=>k).filter(k=>(p[k]||[]).length).map(k=>`<dt>${LBL[k]}</dt><dd>${p[k].map(esc).join("<br>")}</dd>`).join("");
+  const segs=segsOf([t]);
+  return `<div class="body c-${c}"><div class="code">${esc(code)}${o.est?'<span class="est">est.</span>':""}</div>
+   <div class="time">${segs.map(([a,b])=>fmtR(a,b)).join(" · ")}</div>
+   <div class="topic">${o.due?`<span class="pill">${esc(o.due)}</span>`:""}${esc(topic)}</div>
+   ${(p.n||[]).length?`<div class="note">${p.n.map(esc).join(" · ")}</div>`:""}
+   ${rows?`<div class="prep"><dl>${rows}</dl></div>`:((p.n||[]).length?"":`<div class="prep">No prep listed.</div>`)}</div>`}
+function dayGrid(w,d,[s0,e0]){
+  const y=m=>(m-s0)*PPM, out=[];
+  for(let m=s0;m<=e0;m+=m===s0&&m%60?60-m%60:60) out.push(`<div class="hr" style="top:${y(m)}px"><span>${CLOCK==="12"?fmtT(hm(m)).replace(":00",""):hm(m)}</span></div>`);
+  const brk=(a,b,l)=>out.push(`<div class="brk" style="top:${y(toMin(a))}px;height:${(toMin(b)-toMin(a))*PPM}px" title="${fmtR(a,b)}"><span class="lbl">${l}<span class="dur">${fmtDur(toMin(b)-toMin(a))}</span></span></div>`);
+  let prevEnd=d.start, first=true;
+  d.blocks.forEach(b=>{
+    const segs=segsOf(b), bi=BLK.push(b)-1, [t,c,code,topic,p,o={}]=b, fin=c==="FIN"&&!finShown(w,o);
+    const nPrep=fin?0:GROUPS.reduce((n,[k])=>n+(p[k]||[]).length,0);
+    segs.forEach(([a,e],k)=>{
+      if(toMin(a)>toMin(prevEnd)) brk(prevEnd,a,first&&k===0?"Leaders' Morning Activity":brkLabel(d,prevEnd,a));
+      const h=(toMin(e)-toMin(a))*PPM;
+      out.push(`<button type="button" class="blk c-${c}" data-b="${bi}" style="top:${y(toMin(a))}px;height:${h}px">
+        <div class="row"><span class="time">${fmtR(a,e)}</span><span class="code">${esc(k?code.split(" ·")[0]:code)}${o.est&&!k&&!fin?'<span class="est">est.</span>':""}</span></div>
+        ${k?`<div class="cont">${esc(fin?"Financial Accounting":topic)} (continued)</div>`:
+        `<div class="topic">${o.due&&!fin?`<span class="pill">${esc(o.due)}</span>`:""}${esc(fin?"Financial Accounting":topic)}</div>
+        <div class="more">${nPrep?`${nPrep} prep item${nPrep>1?"s":""} · tap for details`:"Tap for details"}</div>`}</button>`);
+      prevEnd=e;
+    });
+    first=false;
   });
-  return out.join("");
+  return `<div class="tl" style="height:${(e0-s0)*PPM}px">${out.join("")}</div>`;
 }
-let CURW=null;
+let CURW=null, CURI=0;
 function render(i){
-  const w=W[i], done=load(); CURW=w;
+  const w=W[i], done=load(), span=weekendSpan(w); CURW=w; CURI=i; BLK.length=0;
   document.querySelectorAll("#picker button").forEach((b,j)=>b.setAttribute("aria-pressed",j===i?"true":"false"));
   const tag=i===curIdx?"This weekend":i===nextIdx?"Next weekend":"";
   document.getElementById("title").textContent=(tag?tag+": ":"Class weekend ")+w.label;
@@ -284,8 +340,9 @@ function render(i){
     ${groups?`<div class="groups">${groups}</div>`:`<p class="none">No pre-readings or cases listed for this weekend. Check Blackboard.</p>`}</div>
    <div class="days" style="margin-top:16px">${w.days.map(d=>`
     <article class="day"><h3>${esc(d.name)}</h3>
-     ${dayRows(d)}
+     ${dayGrid(w,d,span)}
     </article>`).join("")}</div>`;
+  document.querySelectorAll("#weekend .blk").forEach(el=>el.addEventListener("click",()=>openSheet(w,BLK[+el.dataset.b])));
   document.querySelectorAll("#weekend input[type=checkbox]").forEach(cb=>cb.addEventListener("change",()=>{const o=load();if(cb.checked)o[cb.dataset.id]=1;else delete o[cb.dataset.id];save(o)}));
   try{history.replaceState(null,"","#"+w.id)}catch(e){}
 }
@@ -298,8 +355,43 @@ W.forEach((w,i)=>{
 });
 document.getElementById("deadlines").innerHTML=D.map(([iso,d,c,code,t])=>
  `<li class="c-${c}${day(iso)<today?" done":""}"><span class="d">${d}</span><span class="cc">${code}</span><span class="t">${esc(t)}</span></li>`).join("");
+// Prep sheet
+const sheet=document.getElementById("sheet");
+function openSheet(w,b){document.getElementById("sheetbody").innerHTML=prepHTML(w,b);try{sheet.showModal()}catch(e){sheet.setAttribute("open","")}}
+document.getElementById("sheetx").onclick=()=>sheet.close?sheet.close():sheet.removeAttribute("open");
+sheet.addEventListener("click",e=>{if(e.target===sheet)sheet.close()});
+// Deadline calendar: one month grid per month from the first class weekend to the last
+const isoOf=x=>`${x.getFullYear()}-${p2(x.getMonth()+1)}-${p2(x.getDate())}`;
+const DL={}; D.forEach(r=>(DL[r[0]]=DL[r[0]]||[]).push(r));
+const CLS=new Set(W.flatMap(w=>[w.fri,isoOf(sat(w))]));
+let SEL=(D.find(r=>day(r[0])>=today)||D.at(-1))[0];
+function calHTML(){
+  const all=[...W.map(w=>w.fri),...D.map(r=>r[0])].sort(), first=day(all[0]), last=day(all.at(-1)), mons=[];
+  for(let m=new Date(first.getFullYear(),first.getMonth(),1);m<=last;m.setMonth(m.getMonth()+1)){
+    const y=m.getFullYear(), mo=m.getMonth(), n=new Date(y,mo+1,0).getDate(), lead=new Date(y,mo,1).getDay(), cells=[];
+    for(let k=0;k<lead;k++) cells.push("<span></span>");
+    for(let dd=1;dd<=n;dd++){
+      const iso=`${y}-${p2(mo+1)}-${p2(dd)}`, x=day(iso), items=DL[iso]||[];
+      const cls=`cd${CLS.has(iso)?" cls":""}${x<today?" past":""}${+x===+today?" today":""}`;
+      const dots=items.length?`<span class="dots">${items.map(r=>`<i class="c-${r[2]}"></i>`).join("")}</span>`:"";
+      cells.push(items.length?`<button type="button" class="${cls}" data-iso="${iso}" aria-pressed="${iso===SEL}" aria-label="${dd} ${m.toLocaleString("en-GB",{month:"long"})}: ${items.length} deadline${items.length>1?"s":""}">${dd}${dots}</button>`:`<span class="${cls}">${dd}</span>`);
+    }
+    mons.push(`<div class="mon"><h4>${m.toLocaleString("en-GB",{month:"long",year:"numeric"})}</h4><div class="g">${["S","M","T","W","T","F","S"].map(x=>`<span class="wd">${x}</span>`).join("")}${cells.join("")}</div></div>`);
+  }
+  const sel=(DL[SEL]||[]).map(([iso,d,c,code,t])=>`<li class="c-${c}${day(iso)<today?" done":""}"><span class="d">${d}</span><span class="cc">${code}</span><span class="t">${esc(t)}</span></li>`).join("");
+  return `<p class="calkey"><span><span class="sw"></span>Class weekend</span><span>Tap a date with a dot to see what's due</span></p>
+   <ol class="caldet" style="margin-bottom:14px">${sel}</ol><div class="cal">${mons.join("")}</div>`;
+}
+function drawCal(){const el=document.getElementById("dlcal");el.innerHTML=calHTML();
+  el.querySelectorAll("button.cd").forEach(b=>b.onclick=()=>{SEL=b.dataset.iso;drawCal()})}
+// Toggles
+function seg(id,key,def,apply){const el=document.getElementById(id);let v=def;try{v=localStorage.getItem(key)||def}catch(e){}
+  const set=x=>{v=x;el.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===v?"true":"false"));try{localStorage.setItem(key,v)}catch(e){};apply(v)};
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>set(b.dataset.v)); set(v)}
+seg("dlview","a3-dlview","list",v=>{document.getElementById("deadlines").hidden=v!=="list";document.getElementById("dlcal").hidden=v!=="cal";if(v==="cal")drawCal()});
 const h=(location.hash||"").slice(1); const hi=W.findIndex(w=>w.id===h);
 render(hi>=0?hi:nextIdx);
+seg("clock","a3-clock","12",v=>{CLOCK=v;render(CURI)});
 picker.children[hi>=0?hi:nextIdx]?.scrollIntoView({block:"nearest",inline:"center"});
 </script>
 
