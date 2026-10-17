@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A3 Weekend Schedule</title>
+<meta name="description" content="EMBA Weekend A3 class schedule, pre-readings, to-dos and deadlines.">
+<meta name="theme-color" content="#0f2a44">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f9; --card:#ffffff; --ink:#132235; --muted:#5d6b7c; --line:#e3e8ef;
+  --brand:#0f2a44; --brand-ink:#ffffff; --shade:#eef1f5; --shade-ink:#5d6b7c;
+  --warn-bg:#fff4dd; --warn-ink:#8a5a00; --past:#9aa5b1;
+  --ECN511:#2563eb; --ENT511:#c2410c; --FIN512:#047857; --MGT532:#7c3aed; --LEAD501:#be185d; --OPS512:#0e7490; --MKT511:#a16207;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d1520; --card:#152131; --ink:#e7edf4; --muted:#9aa8b8; --line:#243347;
+    --brand:#0b1e31; --shade:#1b2a3c; --shade-ink:#9aa8b8; --warn-bg:#3a2c0b; --warn-ink:#f5c66b; --past:#5f6d7d;
+    --ECN511:#7aa2ff; --ENT511:#fb923c; --FIN512:#34d399; --MGT532:#a78bfa; --LEAD501:#f472b6; --OPS512:#22d3ee; --MKT511:#facc15;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d1520; --card:#152131; --ink:#e7edf4; --muted:#9aa8b8; --line:#243347;
+  --brand:#0b1e31; --shade:#1b2a3c; --shade-ink:#9aa8b8; --warn-bg:#3a2c0b; --warn-ink:#f5c66b; --past:#5f6d7d;
+  --ECN511:#7aa2ff; --ENT511:#fb923c; --FIN512:#34d399; --MGT532:#a78bfa; --LEAD501:#f472b6; --OPS512:#22d3ee; --MKT511:#facc15;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--brand);color:var(--brand-ink);padding:18px 16px 0;position:sticky;top:0;z-index:5}
+.wrap{max-width:760px;margin:0 auto}
+h1{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin:0;opacity:.75}
+.wk-title{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 4px}
+.wk-title h2{font-size:22px;margin:0;font-weight:700}
+.nav{display:flex;gap:6px}
+.nav button{appearance:none;border:1px solid rgba(255,255,255,.3);background:transparent;color:inherit;width:36px;height:36px;border-radius:10px;font-size:18px;cursor:pointer}
+.nav button:disabled{opacity:.3;cursor:default}
+.venue{font-size:13px;opacity:.8;margin-bottom:10px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 0 12px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid rgba(255,255,255,.25);background:transparent;color:inherit;border-radius:999px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.chip.on{background:#fff;color:var(--brand);border-color:#fff;font-weight:600}
+.chip.past{opacity:.55}
+main{padding:16px 16px 8px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden}
+section>h3{font-size:15px;margin:0;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.count{font-size:12px;color:var(--muted);font-weight:500}
+.day h4{margin:0;padding:10px 16px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--bg);border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.t{font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted);padding-top:1px}
+.row.break{background:var(--shade);color:var(--shade-ink);padding-top:7px;padding-bottom:7px}
+.row.break .what{font-size:13px;font-style:italic}
+.row.activity .what{color:var(--muted);font-size:14px}
+.row.cls{border-left:4px solid var(--c);padding-left:12px}
+.code{font-weight:700;color:var(--c);font-size:13px;letter-spacing:.02em}
+.ctitle{font-weight:600}
+.who{font-size:12.5px;color:var(--muted)}
+ul.sess{margin:6px 0 0;padding:0;list-style:none}
+ul.sess li{font-size:13.5px;padding:2px 0 2px 12px;position:relative}
+ul.sess li:before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--c)}
+.cont{font-size:13px;color:var(--muted)}
+.est{display:inline-block;font-size:11px;font-weight:600;background:var(--warn-bg);color:var(--warn-ink);border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:1px}
+.note{font-size:12.5px;color:var(--warn-ink);background:var(--warn-bg);border-radius:8px;padding:5px 8px;margin-top:6px}
+.grp{padding:10px 16px 4px}
+.grp h5{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.item{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-top:1px dashed var(--line)}
+.grp h5+.item{border-top:0}
+.tag{flex:0 0 auto;font-size:11.5px;font-weight:700;color:var(--c);border:1px solid var(--c);border-radius:6px;padding:1px 6px;margin-top:1px}
+.lbl{font-size:12px;color:var(--muted)}
+.item a{color:inherit}
+.empty{padding:14px 16px;color:var(--muted);font-size:14px}
+.todo .item{padding:10px 16px;border-top:1px solid var(--line)}
+.todo .item:first-of-type{border-top:0}
+.box{flex:0 0 18px;height:18px;border:2px solid var(--c);border-radius:5px;margin-top:2px}
+.when{font-size:12.5px;color:var(--muted)}
+.dl .item{padding:10px 16px;border-top:1px solid var(--line)}
+.dl .item:first-of-type{border-top:0}
+.date{flex:0 0 64px;text-align:center;border-radius:10px;background:var(--bg);padding:4px 0;line-height:1.15}
+.date b{display:block;font-size:18px}
+.date span{font-size:11px;color:var(--muted);text-transform:uppercase}
+.dl .past{opacity:.5}
+.foot-note{font-size:12.5px;color:var(--muted);padding:10px 16px 14px}
+details summary{cursor:pointer;padding:10px 16px;color:var(--muted);font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:8px 16px 32px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>EMBA Weekend A3</h1>
+    <div class="wk-title"><h2 id="wkTitle"></h2>
+      <div class="nav"><button id="prev" aria-label="Previous weekend">‹</button><button id="next" aria-label="Next weekend">›</button></div>
+    </div>
+    <div class="venue" id="venue"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+<main class="wrap" id="main"></main>
+<footer>Created by Abdulkareem Altamimi · A3</footer>
+<script>
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const DAY=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const d=s=>{const [y,m,dd]=s.split("-").map(Number);return new Date(y,m-1,dd)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const today=(()=>{const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate())})();
+let DATA,idx=0;
+
+function wkLabel(w){const a=d(w.days[0].date),b=d(w.days[w.days.length-1].date);
+  return a.getMonth()===b.getMonth()?`${a.getDate()}–${b.getDate()} ${MON[a.getMonth()]}`:`${a.getDate()} ${MON[a.getMonth()]} – ${b.getDate()} ${MON[b.getMonth()]}`}
+function wkEnd(w){return d(w.days[w.days.length-1].date)}
+const cvar=c=>`--c:var(--${c},var(--muted))`;
+const tag=c=>`<span class="tag" style="${cvar(c)}">${esc(c)}</span>`;
+
+function timeline(w){
+  return w.days.map(day=>{
+    const dt=d(day.date);
+    const rows=day.rows.map(r=>{
+      const t=`<div class="t">${r.start}${r.end?"–"+r.end:""}</div>`;
+      if(r.kind==="break")return `<div class="row break">${t}<div class="what">${esc(r.title)}</div></div>`;
+      if(r.kind==="activity")return `<div class="row activity">${t}<div class="what">${esc(r.title)}</div></div>`;
+      const c=DATA.courses[r.course]||{title:r.course};
+      if(r.cont)return `<div class="row cls" style="${cvar(r.course)}">${t}<div><span class="code">${r.course}</span> <span class="cont">continues</span></div></div>`;
+      const sess=(r.sessions&&r.sessions.length)?`<ul class="sess">${r.sessions.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>`:(c.syllabus?"":`<div class="who">Syllabus not received yet</div>`);
+      return `<div class="row cls" style="${cvar(r.course)}">${t}<div>
+        <div><span class="code">${r.course}</span> <span class="ctitle">${esc(c.title)}</span>${r.est?'<span class="est">Estimate</span>':""}${r.online?'<span class="est">Zoom</span>':""}</div>
+        ${r.instructor?`<div class="who">${esc(r.instructor)}</div>`:""}${sess}${r.note?`<div class="note">${esc(r.note)}</div>`:""}</div></div>`;
+    }).join("");
+    return `<div class="day"><h4>${DAY[dt.getDay()]} ${dt.getDate()} ${MON[dt.getMonth()]}</h4>${rows}</div>`;
+  }).join("");
+}
+
+function prep(w){
+  const groups=[["case","Cases"],["reading","Reading"],["watch","Watch"],["additional","Additional reading"]];
+  const out=groups.map(([k,h])=>{
+    const items=w.prep.filter(p=>p.type===k);
+    if(!items.length)return "";
+    return `<div class="grp"><h5>${h}</h5>${items.map(p=>`<div class="item">${tag(p.course)}<div>${p.url?`<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.text)}</a>`:esc(p.text)}${p.label&&p.label!=="Case"?` <span class="lbl">· ${esc(p.label)}</span>`:""}</div></div>`).join("")}</div>`;
+  }).join("");
+  if(!out)return `<div class="empty">Nothing listed in the syllabi for this weekend.</div>`;
+  const notes=[];
+  if(w.prep.some(p=>p.course==="ENT511"))notes.push("ENT511 labels are the syllabus’s own (“E. Readings”, “A. Readings”).");
+  if(w.prep_est)notes.push("FIN512’s syllabus has no dates, so its weekend placement is an estimate.");
+  return out+(notes.length?`<div class="foot-note">${notes.join(" ")}</div>`:"");
+}
+
+function todo(w){
+  if(!w.todo.length)return `<div class="empty">Nothing due this weekend.</div>`;
+  return w.todo.map(t=>`<div class="item" style="${cvar(t.course)}"><div class="box"></div><div>${tag(t.course)} ${esc(t.text)}<div class="when">${esc(t.when)}${t.est?'<span class="est">Estimate</span>':""}</div></div></div>`).join("");
+}
+
+function deadlines(w){
+  const start=d(w.days[0].date);
+  const row=x=>{const dt=x.date?d(x.date):null;
+    const date=dt?`<div class="date"><b>${dt.getDate()}</b><span>${MON[dt.getMonth()]} ${String(dt.getFullYear()).slice(2)}</span></div>`:`<div class="date"><b>–</b><span>No date</span></div>`;
+    const est=x.note==="estimate";
+    return `<div class="item${dt&&dt<today?" past":""}">${date}<div>${tag(x.course)} ${esc(x.text)}${est?'<span class="est">Estimate</span>':""}${x.note&&!est?`<div class="when">${esc(x.note)}</div>`:""}</div></div>`};
+  const up=DATA.deadlines.filter(x=>!x.date||d(x.date)>=start), past=DATA.deadlines.filter(x=>x.date&&d(x.date)<start);
+  return (up.length?up.map(row).join(""):`<div class="empty">No deadlines from this weekend on.</div>`)+
+    (past.length?`<details><summary>Earlier deadlines (${past.length})</summary>${past.map(row).join("")}</details>`:"");
+}
+
+function render(){
+  const w=DATA.weekends[idx];
+  document.getElementById("wkTitle").textContent=wkLabel(w)+" "+d(w.days[0].date).getFullYear();
+  document.getElementById("venue").textContent=w.venue||"";
+  document.getElementById("prev").disabled=idx===0;
+  document.getElementById("next").disabled=idx===DATA.weekends.length-1;
+  document.querySelectorAll(".chip").forEach((c,i)=>c.classList.toggle("on",i===idx));
+  const on=document.querySelectorAll(".chip")[idx]; if(on)on.scrollIntoView({block:"nearest",inline:"center"});
+  document.getElementById("main").innerHTML=`
+    <section><h3>Timeline</h3>${timeline(w)}</section>
+    <section><h3>Pre-readings and cases <span class="count">${w.prep.length||""}</span></h3>${prep(w)}</section>
+    <section class="todo"><h3>To do <span class="count">${w.todo.length||""}</span></h3>${todo(w)}</section>
+    <section class="dl"><h3>Deadlines</h3>${deadlines(w)}</section>`;
+  try{history.replaceState(null,"","#"+w.id)}catch(e){}
+}
+
+fetch("data.json",{cache:"no-cache"}).then(r=>r.json()).then(j=>{
+  DATA=j;
+  const hash=location.hash.slice(1);
+  const h=DATA.weekends.findIndex(w=>w.id===hash);
+  if(h>=0)idx=h;else{const n=DATA.weekends.findIndex(w=>wkEnd(w)>=today);idx=n>=0?n:DATA.weekends.length-1}
+  document.getElementById("chips").innerHTML=DATA.weekends.map((w,i)=>`<button class="chip${wkEnd(w)<today?" past":""}" data-i="${i}">${wkLabel(w)}</button>`).join("");
+  document.getElementById("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b){idx=+b.dataset.i;render();window.scrollTo(0,0)}});
+  document.getElementById("prev").onclick=()=>{if(idx>0){idx--;render()}};
+  document.getElementById("next").onclick=()=>{if(idx<DATA.weekends.length-1){idx++;render()}};
+  render();
+});
+</script>
+</body>
+</html>
